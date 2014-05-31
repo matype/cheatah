@@ -7,15 +7,15 @@ module.exports = Cheatah;
 function Cheatah (cssPath, options) {
   if (!(this instanceof Cheatah)) return new Cheatah(cssPath, options);
 
-  options = options || {}
+  this.options = options || {}
 
   this.cssPath = cssPath
   this.css = read(cssPath)
   this.ast = parse(this.css)
   console.log(this.ast.stylesheet)
 
-  this.template = importTemplate(options)
-  this.style = importStyle(options)
+  this.template = importTemplate(this.options)
+  this.style = importStyle(this.options)
 }
 
 Cheatah.prototype.selectors = function () {
@@ -75,11 +75,12 @@ Cheatah.prototype.isInline = function (selector) {
   return ret
 }
 
-Cheatah.prototype.template = function () {
+Cheatah.prototype.templates = function () {
   var self = this
 
   var tmplData = {}
-  tmplData.tmplCss = self.style;
+  if (this.options.stylesheet) tmplData.tmplCssPath = this.options.stylesheet
+  else tmplData.tmplCssPath = 'template/default.css'
   tmplData.cssPath = self.cssPath;
   tmplData.selectors = self.selectors()
   tmplData.declarations = []

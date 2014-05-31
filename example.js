@@ -1,6 +1,6 @@
 var fs = require('fs')
-var Cheater = require('./')
+var Cheatah = require('./')
 
-var cheater = new Cheater('test/fixture.css');
-var selectors = cheater.selectors()
-console.log(selectors)
+var cheatah = new Cheatah('test/fixture.css');
+
+cheatah.templates()
