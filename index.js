@@ -24,27 +24,45 @@ Cheater.prototype.selectors = function () {
 
   })
   return selectors
-};
+}
 
-Cheater.prototype.declarations function (selector) {
+Cheater.prototype.declarations  = function (selector) {
   var properties = []
   var values = []
   var declaration_num = 0
   var declarations = []
 
-  if (rule.selectors.toString() === selector) {
-    rule.declarations.forEach(function (declaration) {
-      if (declaration.type === 'declaration') {
-        properties.push(declaration.property + ':')
-        values.push(declaration.value + ';')
-        declaration_num++
-      }
-    })
-  }
+  this.ast.stylesheet.rules.forEach(function visit (rule) {
+    if (rule.rules) rule.rules.forEach(visit)
+
+    if (rule.selectors.toString() === selector) {
+      rule.declarations.forEach(function (declaration) {
+        if (declaration.type === 'declaration') {
+          properties.push(declaration.property + ':')
+          values.push(declaration.value + ';')
+          declaration_num++
+        }
+      })
+    }
+  })
 
   for (var i = 0; i < declaration_num; i++) {
-    new_declaration.push(properties[i] + values[i]);
+    new_declaration.push(properties[i] + values[i])
   }
 
   return declarations.join('')
+}
+
+Cheater.prototype.isInline = function (selector) {
+  this.ast.stylesheet.rules.forEach(function visit (rule) {
+    if (rule.rules) rule.rules.forEach(visit)
+
+    rule.declaration.forEach(function (declaration) {
+      if (declaration.property.match(/width|height/)
+      || (declaration.property === 'display' && declaration.value === 'block')) {
+        return false
+      }
+    })
+  })
+  return true
 }
