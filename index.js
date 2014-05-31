@@ -1,26 +1,25 @@
 var fs = require('fs')
-var erb = require('erb')
+var ejs = require('ejs')
 var parse = require('css-parse')
 
-module.exports = Cheater;
+module.exports = Cheatah;
 
-function Cheater (cssPath, options) {
-  if (!(this instanceof Cheater)) return new Cheater(css, options);
+function Cheatah (cssPath, options) {
+  if (!(this instanceof Cheatah)) return new Cheatah(cssPath, options);
 
-  this.options = options || {}
+  options = options || {}
 
   this.cssPath = cssPath
   this.css = read(cssPath)
   this.ast = parse(this.css)
   console.log(this.ast.stylesheet)
 
-  this.template = importTemplate()
-  this.style = importStyle()
+  this.template = importTemplate(options)
+  this.style = importStyle(options)
 }
 
-Cheater.prototype.selectors = function () {
+Cheatah.prototype.selectors = function () {
   var selectors = []
-  var new_declaration = []
 
   this.ast.stylesheet.rules.forEach(function visit (rule) {
     if (rule.rules) rule.rules.forEach(visit)
@@ -32,7 +31,7 @@ Cheater.prototype.selectors = function () {
   return selectors
 }
 
-Cheater.prototype.declarations  = function (selector) {
+Cheatah.prototype.declarations  = function (selector) {
   var properties = []
   var values = []
   var declaration_num = 0
@@ -53,33 +52,35 @@ Cheater.prototype.declarations  = function (selector) {
   })
 
   for (var i = 0; i < declaration_num; i++) {
-    new_declaration.push(properties[i] + values[i])
+    declarations.push(properties[i] + values[i])
   }
 
   return declarations.join('')
 }
 
-Cheater.prototype.isInline = function (selector) {
+Cheatah.prototype.isInline = function (selector) {
+  var ret = true
+
   this.ast.stylesheet.rules.forEach(function visit (rule) {
     if (rule.rules) rule.rules.forEach(visit)
 
-    rule.declaration.forEach(function (declaration) {
+    rule.declarations.forEach(function (declaration) {
       if (declaration.property.match(/width|height/)
       || (declaration.property === 'display' && declaration.value === 'block')) {
-        return false
+        ret = false
       }
     })
   })
 
-  return true
+  return ret
 }
 
-Cheater.prototype.template = function () {
+Cheatah.prototype.template = function () {
   var self = this
 
   var tmplData = {}
   tmplData.tmplCss = self.style;
-  tmplData.css = self.css;
+  tmplData.cssPath = self.cssPath;
   tmplData.selectors = self.selectors()
   tmplData.declarations = []
 
@@ -92,15 +93,15 @@ Cheater.prototype.template = function () {
   fs.witeFileSync('doc.html', html);
 }
 
-function importTemplate () {
-  if (this.options.template) var template = read(option.template)
-  else var template = read('template/default.erb')
+function importTemplate (options) {
+  if (options.template) var template = read(options.template)
+  else var template = read('template/default.ejs')
 
   return template
 }
 
-function importStyle () {
-  if (this.options.stylesheet) var style = read(option.stylesheet)
+function importStyle (options) {
+  if (options.stylesheet) var style = read(options.stylesheet)
   else var style = read('template/default.css')
 
   return style
