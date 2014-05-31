@@ -1,16 +1,21 @@
+var fs = require('fs')
+var erb = require('erb')
 var parse = require('css-parse')
 
 module.exports = Cheater;
 
-function Cheater (css, options) {
-  if (!(this instanceof Cheater)) {
-    return new Cheater(css, options);
-  }
+function Cheater (cssPath, options) {
+  if (!(this instanceof Cheater)) return new Cheater(css, options);
 
-  options = options || {}
+  this.options = options || {}
 
-  this.css = css
-  this.ast = parse(css)
+  this.cssPath = cssPath
+  this.css = read(cssPath)
+  this.ast = parse(this.css)
+  console.log(this.ast.stylesheet)
+
+  this.template = importTemplate()
+  this.style = importStyle()
 }
 
 Cheater.prototype.selectors = function () {
@@ -23,6 +28,7 @@ Cheater.prototype.selectors = function () {
     selectors.push(rule.selectors.toString())
 
   })
+
   return selectors
 }
 
@@ -64,5 +70,42 @@ Cheater.prototype.isInline = function (selector) {
       }
     })
   })
+
   return true
+}
+
+Cheater.prototype.template = function () {
+  var self = this
+
+  var tmplData = {}
+  tmplData.tmplCss = self.style;
+  tmplData.css = self.css;
+  tmplData.selectors = self.selectors()
+  tmplData.declarations = []
+
+  tmplData.selectors.forEach(function (selector) {
+    tmplData.declarations.push(self.declarations(selector))
+  })
+
+  var html = ejs.render(this.template, tmplData)
+
+  fs.witeFileSync('doc.html', html);
+}
+
+function importTemplate () {
+  if (this.options.template) var template = read(option.template)
+  else var template = read('template/default.erb')
+
+  return template
+}
+
+function importStyle () {
+  if (this.options.stylesheet) var style = read(option.stylesheet)
+  else var style = read('template/default.css')
+
+  return style
+}
+
+function read (name) {
+  return fs.readFileSync(name, 'utf-8').trim()
 }
