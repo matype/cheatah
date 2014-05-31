@@ -1,0 +1,27 @@
+{
+  "name": "cheatah",
+  "version": "0.0.1",
+  "description": "More fast and casual CSS styleguide generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "colored-tape test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/morishitter/cheatah/git"
+  },
+  "keywords": [
+    "css",
+    "styleguide",
+    "generator"
+  ],
+  "author": "Masaaki Morishita",
+  "license": "MIT",
+  "dependencies": {
+    "css-parse": "^1.7.0"
+  },
+  "devDependencies": {
+    "tap": "^0.4.9",
+    "colored-tape": "^1.0.1"
+  }
+}
