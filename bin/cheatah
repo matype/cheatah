@@ -7,6 +7,6 @@ var Cheatah = require('../')
 
 program
 .version(pkg.version)
-.option('-t, --template', 'import template file (.ejs)')
-.option('-s, --stylesheet', 'import stylesheet')
+.option('-t, --template', 'your template file (.ejs) path')
+.option('-s, --stylesheet', 'your stylesheet path')
 .parse(process.argv)
