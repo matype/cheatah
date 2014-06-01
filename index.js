@@ -75,12 +75,13 @@ Cheatah.prototype.isInline = function (selector) {
   return ret
 }
 
-Cheatah.prototype.templates = function () {
+Cheatah.prototype.build = function () {
   var self = this
-
   var tmplData = {}
+
   if (this.options.stylesheet) tmplData.tmplCssPath = this.options.stylesheet
   else tmplData.tmplCssPath = 'template/default.css'
+
   tmplData.cssPath = self.cssPath;
   tmplData.selectors = self.selectors()
   tmplData.declarations = []
@@ -88,6 +89,8 @@ Cheatah.prototype.templates = function () {
   tmplData.selectors.forEach(function (selector) {
     tmplData.declarations.push(self.declarations(selector))
   })
+
+  console.log(tmplData.declarations)
 
   var html = ejs.render(this.template, tmplData)
 

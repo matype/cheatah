@@ -3,4 +3,4 @@ var Cheatah = require('./')
 
 var cheatah = new Cheatah('test/fixture.css');
 
-cheatah.templates()
+cheatah.build()
