@@ -1,6 +1,6 @@
 # cheatah [![Build Status](https://travis-ci.org/morishitter/cheatah.svg)](https://travis-ci.org/morishitter/cheatah)
 
-More fast and casual CSS styleguide generator.
+More fast and casual CSS styleguide or cheatsheet generator.
 
 Generate styleguide without writing unless comments in your CSS file.
 
