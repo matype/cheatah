@@ -17,6 +17,9 @@
   ],
   "author": "Masaaki Morishita",
   "license": "MIT",
+  "bin": {
+    "cheatah": "bin/cheatah"
+  },
   "dependencies": {
     "css-parse": "^1.7.0",
     "ejs": "^1.0.0"
