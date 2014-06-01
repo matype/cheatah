@@ -1,8 +1,10 @@
 .content-box {
   display: block;
-  background-color: #fff;
+  background-color: #eee;
   margin: 10px 0;
   padding: 20px;
   border-radius: 5px;
   box-sizing: border-box;
+  width: 200px;
+  height: 200px;
 }
