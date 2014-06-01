@@ -2,7 +2,7 @@ var fs = require('fs')
 var ejs = require('ejs')
 var parse = require('css-parse')
 
-module.exports = Cheatah;
+module.exports = Cheatah
 
 function Cheatah (cssPath, options) {
     if (!(this instanceof Cheatah)) return new Cheatah(cssPath, options);
@@ -24,7 +24,6 @@ Cheatah.prototype.selectors = function () {
         if (rule.rules) rule.rules.forEach(visit);
 
         selectors.push(rule.selectors.toString())
-
     })
 
     return selectors
@@ -61,13 +60,13 @@ Cheatah.prototype.isInline = function (selector) {
     var ret = true
 
     this.ast.stylesheet.rules.forEach(function visit (rule) {
-        if (rule.rules) rule.rules.forEach(visit)
+        if (rule.rules) rule.rules.forEach(visit);
 
-            rule.declarations.forEach(function (declaration) {
-                if (declaration.property.match(/width|height/) || (declaration.property === 'display' && declaration.value === 'block')) {
-                    ret = false
-                }
-            })
+        rule.declarations.forEach(function (declaration) {
+            if (declaration.property.match(/width|height/) || (declaration.property === 'display' && declaration.value === 'block')) {
+                ret = false
+            }
+        })
     })
 
     return ret
@@ -95,10 +94,8 @@ Cheatah.prototype.build = function () {
 
         tmplData.declarations.push(wrappedDec.join(''))
     })
-    console.log(tmplData.styleAttr)
 
     var html = ejs.render(this.template, tmplData)
-
     fs.writeFileSync('doc.html', html);
 }
 
@@ -121,16 +118,19 @@ function read (name) {
 }
 
 function htmlWrap (str, tag, attributes){
-    var attributestr = "";
-    for(var i = 2; i < arguments.length; i++){
+    var attributestr = ""
+
+    for (var i = 2; i < arguments.length; i++) {
         var attr = arguments[i];
+
         if(!(attr instanceof Array) && (attr instanceof Object)) {
             for (var key in attr) if (attr.hasOwnProperty(key)) {
-                    attributestr += " " + key + "=" + attr[key];
+                    attributestr += " " + key + "=" + attr[key]
             }
         } else {
-            attributestr += " " + attr;
+            attributestr += " " + attr
         }
     }
-    return "<" + tag + attributestr + ">" + str + "</" + tag + ">";
+
+    return "<" + tag + attributestr + ">" + str + "</" + tag + ">"
 }
