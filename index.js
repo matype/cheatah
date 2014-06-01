@@ -91,7 +91,7 @@ Cheatah.prototype.templates = function () {
 
   var html = ejs.render(this.template, tmplData)
 
-  fs.witeFileSync('doc.html', html);
+  fs.writeFileSync('doc.html', html);
 }
 
 function importTemplate (options) {
