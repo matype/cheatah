@@ -7,6 +7,17 @@
   <link rel="stylesheet" href="<%= cssPath %>">
 </head>
 <body>
-  
+  <h1>Cheatah</h1>
+  <% var count= 0 %>
+  <% selectors.forEach(function (selector) { %>
+  <section>
+    <h2><%= selector %></h2>
+    <div>
+      <div style="<%= styleAttr[count] %>"></div>
+      <div><%= declarations[count] %></div>
+    </div>
+  </section>
+  <% count++ %>
+  <% }) %>
 </body>
 </html>

@@ -12,7 +12,6 @@ function Cheatah (cssPath, options) {
   this.cssPath = cssPath
   this.css = read(cssPath)
   this.ast = parse(this.css)
-  console.log(this.ast.stylesheet)
 
   this.template = importTemplate(this.options)
   this.style = importStyle(this.options)
@@ -84,13 +83,11 @@ Cheatah.prototype.build = function () {
 
   tmplData.cssPath = self.cssPath;
   tmplData.selectors = self.selectors()
-  tmplData.declarations = []
+  tmplData.styleAttr = []
 
   tmplData.selectors.forEach(function (selector) {
     tmplData.declarations.push(self.declarations(selector))
   })
-
-  console.log(tmplData.declarations)
 
   var html = ejs.render(this.template, tmplData)
 
