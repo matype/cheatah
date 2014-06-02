@@ -1,6 +1,7 @@
 var fs = require('fs')
 var ejs = require('ejs')
 var parse = require('css-parse')
+var enclose = require('html-enclose')
 
 module.exports = Cheatah
 
@@ -89,7 +90,7 @@ Cheatah.prototype.build = function () {
 
         var wrappedDec = [];
         self.declarations(selector).forEach(function (dec) {
-            wrappedDec.push(htmlWrap(dec, 'p'))
+            wrappedDec.push(enclose(dec, 'p'))
         })
 
         tmplData.declarations.push(wrappedDec.join(''))
@@ -115,22 +116,4 @@ function importStyle (options) {
 
 function read (name) {
     return fs.readFileSync(name, 'utf-8').trim()
-}
-
-function htmlWrap (str, tag, attributes){
-    var attributestr = ""
-
-    for (var i = 2; i < arguments.length; i++) {
-        var attr = arguments[i];
-
-        if(!(attr instanceof Array) && (attr instanceof Object)) {
-            for (var key in attr) if (attr.hasOwnProperty(key)) {
-                    attributestr += " " + key + "=" + attr[key]
-            }
-        } else {
-            attributestr += " " + attr
-        }
-    }
-
-    return "<" + tag + attributestr + ">" + str + "</" + tag + ">"
 }
