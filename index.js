@@ -1,8 +1,14 @@
 var fs = require('fs')
+var path = require('path')
 var ejs = require('ejs')
 var parse = require('css-parse')
 var enclose = require('html-enclose')
 var util = require('./lib/util')
+var config = require('./lib/config')
+
+var nodePrefix = config.nodePrefix
+var globalModulePath = config.globalModulePath
+globalModulePath = ""
 
 module.exports = Cheatah
 
@@ -94,7 +100,7 @@ Cheatah.prototype.build = function () {
     var tmplData = {}
 
     if (this.options.stylesheet) tmplData.tmplCssPath = this.options.stylesheet;
-    else tmplData.tmplCssPath = 'template/default.css';
+    else tmplData.tmplCssPath = globalModulePath + '/template/default.css';
 
     tmplData.cssPath = self.cssPath
     tmplData.selectors = self.selectors()
