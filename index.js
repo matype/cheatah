@@ -2,6 +2,7 @@ var fs = require('fs')
 var ejs = require('ejs')
 var parse = require('css-parse')
 var enclose = require('html-enclose')
+var util = require('./lib/util')
 
 module.exports = Cheatah
 
@@ -11,11 +12,11 @@ function Cheatah (cssPath, options) {
     this.options = options || {}
 
     this.cssPath = cssPath
-    this.css = read(cssPath)
+    this.css = util.read(cssPath)
     this.ast = parse(this.css)
 
-    this.template = importTemplate(this.options)
-    this.style = importStyle(this.options)
+    this.template = util.importTemplate(this.options)
+    this.style = util.importStyle(this.options)
 }
 
 Cheatah.prototype.selectors = function () {
@@ -64,10 +65,25 @@ Cheatah.prototype.isInline = function (selector) {
         if (rule.rules) rule.rules.forEach(visit);
 
         rule.declarations.forEach(function (declaration) {
-            if (declaration.property.match(/width|height/) || (declaration.property === 'display' && declaration.value === 'block')) {
+            if (declaration.property.match(/width|height/)
+            || (declaration.property === 'display' && declaration.value === 'block')) {
                 ret = false
             }
         })
+    })
+
+    return ret
+}
+
+Cheatah.prototype.isDecoration = function (property) {
+    var decorationProp = util.decorationProp()
+    var ret = false;
+
+    decorationProp.forEach(function (dp) {
+        if (property === dp) {
+            ret = true
+            return
+        }
     })
 
     return ret
@@ -98,77 +114,4 @@ Cheatah.prototype.build = function () {
 
     var html = ejs.render(this.template, tmplData)
     fs.writeFileSync('doc.html', html);
-}
-
-Cheatah.prototype.isDecoration = function (property) {
-    var decorationProp = [
-        'background',
-        'background-color',
-        'border',
-        'border-color',
-        'border-radius',
-        'border-style',
-        'border-top',
-        'border-right',
-        'border-bottom',
-        'border-left',
-        'border-top-color',
-        'border-right-color',
-        'border-bottom-color',
-        'border-left-color',
-        'border-top-radius',
-        'border-right-radius',
-        'border-bottom-radius',
-        'border-left-radius',
-        'border-top-width',
-        'border-right-width',
-        'border-bottom-width',
-        'border-left-width',
-        'border-width',
-        'box-shqdow',
-        'color',
-        'filter',
-        'font',
-        'font-family',
-        'font-feature-setting',
-        'font-size',
-        'font-size-adjust',
-        'font-smoothing',
-        'font-style',
-        'font-variant',
-        'font-weight',
-        'letter-spacing',
-        'line-height',
-        'list-style',
-        'opacity'
-    ]
-
-    var ret = false;
-
-    decorationProp.forEach(function (dp) {
-        if (property === dp) {
-            ret = true
-            return
-        }
-    })
-
-    return ret
-}
-
-function importTemplate (options) {
-    if (options.template) var template = read(options.template);
-    else var template = read('template/default.ejs');
-
-    return template
-}
-
-function importStyle (options) {
-    if (options.stylesheet) var style = read(options.stylesheet);
-    else var style = read('template/default.css');
-
-    return style
-}
-
-function read (name) {
-    return fs.readFileSync(name, 'utf-8').trim()
 }
