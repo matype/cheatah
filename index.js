@@ -88,37 +88,19 @@ Cheatah.prototype.build = function () {
     tmplData.selectors.forEach(function (selector) {
         tmplData.styleAttr.push(self.declarations(selector).join(''))
 
-        var wrappedDec = [];
+        var enclosedDec = [];
         self.declarations(selector).forEach(function (dec) {
-            wrappedDec.push(enclose(dec, 'p'))
+            enclosedDec.push(enclose(dec, 'p'))
         })
 
-        tmplData.declarations.push(wrappedDec.join(''))
+        tmplData.declarations.push(enclosedDec.join(''))
     })
 
     var html = ejs.render(this.template, tmplData)
     fs.writeFileSync('doc.html', html);
 }
 
-function importTemplate (options) {
-    if (options.template) var template = read(options.template);
-    else var template = read('template/default.ejs');
-
-    return template
-}
-
-function importStyle (options) {
-    if (options.stylesheet) var style = read(options.stylesheet);
-    else var style = read('template/default.css');
-
-    return style
-}
-
-function read (name) {
-    return fs.readFileSync(name, 'utf-8').trim()
-}
-
-function isDecoration (property) {
+Cheatah.prototype.isDecoration = function (property) {
     var decorationProp = [
         'background',
         'background-color',
@@ -171,4 +153,22 @@ function isDecoration (property) {
     })
 
     return ret
+}
+
+function importTemplate (options) {
+    if (options.template) var template = read(options.template);
+    else var template = read('template/default.ejs');
+
+    return template
+}
+
+function importStyle (options) {
+    if (options.stylesheet) var style = read(options.stylesheet);
+    else var style = read('template/default.css');
+
+    return style
+}
+
+function read (name) {
+    return fs.readFileSync(name, 'utf-8').trim()
 }
