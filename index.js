@@ -117,3 +117,58 @@ function importStyle (options) {
 function read (name) {
     return fs.readFileSync(name, 'utf-8').trim()
 }
+
+function isDecoration (property) {
+    var decorationProp = [
+        'background',
+        'background-color',
+        'border',
+        'border-color',
+        'border-radius',
+        'border-style',
+        'border-top',
+        'border-right',
+        'border-bottom',
+        'border-left',
+        'border-top-color',
+        'border-right-color',
+        'border-bottom-color',
+        'border-left-color',
+        'border-top-radius',
+        'border-right-radius',
+        'border-bottom-radius',
+        'border-left-radius',
+        'border-top-width',
+        'border-right-width',
+        'border-bottom-width',
+        'border-left-width',
+        'border-width',
+        'box-shqdow',
+        'color',
+        'filter',
+        'font',
+        'font-family',
+        'font-feature-setting',
+        'font-size',
+        'font-size-adjust',
+        'font-smoothing',
+        'font-style',
+        'font-variant',
+        'font-weight',
+        'letter-spacing',
+        'line-height',
+        'list-style',
+        'opacity'
+    ]
+
+    var ret = false;
+
+    decorationProp.forEach(function (dp) {
+        if (property === dp) {
+            ret = true
+            return
+        }
+    })
+
+    return ret
+}
