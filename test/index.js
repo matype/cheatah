@@ -32,6 +32,16 @@ test('isInline', function (t) {
     t.end()
 })
 
+test('trimDeclarations', function (t) {
+    var result = cheatah.trimDeclarations()
+
+    var expected = false
+
+    t.equal(result, expected)
+
+    t.end()
+})
+
 test('isDecoration', function (t) {
     var decorationProp = [
         'background',

@@ -95,6 +95,26 @@ Cheatah.prototype.isDecoration = function (property) {
     return ret
 }
 
+Cheatah.prototype.trimDeclarations = function () {
+    var self = this
+    var decorationProp = util.decorationProp()
+
+    self.ast.stylesheet.rules.forEach(function visit (rule) {
+        if (rule.rules) rule.rules.forEach(visit);
+
+        var count = 0
+        rule.declarations.forEach(function (declaration) {
+            if (self.isDecoration(declaration.property)) {
+                console.log(declaration.property)
+                delete rule.declarations[count]
+            }
+            count++
+        })
+    })
+
+    return this.ast.stylesheet.rules
+}
+
 Cheatah.prototype.build = function () {
     var self = this
     var tmplData = {}

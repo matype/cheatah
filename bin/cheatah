@@ -4,9 +4,12 @@ var fs = require('fs')
 var pkg = require('../package.json')
 var program = require('commander')
 var Cheatah = require('../')
+var argv = require('optimist').argv
 
 program
 .version(pkg.version)
 .option('-t, --template', 'your template file (.ejs) path')
 .option('-s, --stylesheet', 'your stylesheet path')
 .parse(process.argv)
+
+
