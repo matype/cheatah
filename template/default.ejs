@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Cheater</title>
     <link rel="stylesheet" href="<%= tmplCssPath %>">
-    <link rel="stylesheet" href="<%= cssPath %>">
+    <!-- <link rel="stylesheet" href="<%= cssPath %>"> -->
+    <style type="text/css">
+      <%= style %>
+    </style>
   </head>
   <body>
     <h1>Cheatah</h1>
@@ -13,7 +16,7 @@
     <section>
     <h2><%= selector %></h2>
     <div>
-      <div style="<%= styleAttr[count] %>"></div>
+      <div style="<%= styleAttr %>"></div>
       <div><%- declarations[count] %></div>
     </div>
     </section>

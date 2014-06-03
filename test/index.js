@@ -15,7 +15,7 @@ test('selectors', function (t) {
 test('declarations', function (t) {
     var result = cheatah.declarations('.content-box')
 
-    var expected = [ 'display:block;', 'background-color:#eee;', 'margin:10px 0;', 'padding:20px;', 'border-radius:5px;', 'box-sizing:border-box;', 'width:200px;', 'height:200px;' ]
+    var expected = [ 'background-color:#eee;', 'border-radius:5px;', 'height:200px;', 'width:250px;' ]
 
     t.same(result, expected)
 

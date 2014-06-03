@@ -40,12 +40,14 @@ Cheatah.prototype.selectors = function () {
 }
 
 Cheatah.prototype.declarations  = function (selector) {
+    var self = this
+    var trimmedAst = self.trim()
     var properties = []
     var values = []
     var declaration_num = 0
     var declarations = []
 
-    this.ast.stylesheet.rules.forEach(function visit (rule) {
+    trimmedAst.stylesheet.rules.forEach(function visit (rule) {
         if (rule.rules) rule.rules.forEach(visit);
 
         if (rule.selectors.toString() === selector) {
@@ -140,7 +142,7 @@ Cheatah.prototype.trim = function () {
         }
     }
 
-    return stringify(ret)
+    return ret
 }
 
 Cheatah.prototype.build = function () {
@@ -154,6 +156,7 @@ Cheatah.prototype.build = function () {
     tmplData.selectors = self.selectors()
     tmplData.styleAttr = []
     tmplData.declarations = []
+    tmplData.style = stringify(self.trim())
 
     tmplData.selectors.forEach(function (selector) {
         tmplData.styleAttr.push(self.declarations(selector).join(''))
