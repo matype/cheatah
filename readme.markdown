@@ -19,10 +19,10 @@ Usage: cheatah [options]
 
   Options:
 
-    -h, --help        output usage information
-    -V, --version     output the version number
-    -t, --template    import your template file (.ejs)
-    -s, --stylesheet  import your stylesheet
+  -h, --help        output usage information
+  -V, --version     output the version number
+  -t, --template    import your template file (.ejs)
+  -s, --stylesheet  import your stylesheet
 ```
 
 ## License
