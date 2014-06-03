@@ -6,7 +6,7 @@ var stringify = require('css-stringify')
 var enclose = require('html-enclose')
 var util = require('./lib/util')
 var config = require('./lib/config')
-var inspect = require('obj-inspector')
+// var inspect = require('obj-inspector')
 
 var nodePrefix = config.nodePrefix
 var globalModulePath = config.globalModulePath
@@ -40,8 +40,34 @@ Cheatah.prototype.selectors = function () {
 }
 
 Cheatah.prototype.declarations  = function (selector) {
-    var self = this
-    var trimmedAst = self.trim()
+    var properties = []
+    var values = []
+    var declaration_num = 0
+    var declarations = []
+
+    this.ast.stylesheet.rules.forEach(function visit (rule) {
+        if (rule.rules) rule.rules.forEach(visit);
+
+        if (rule.selectors.toString() === selector) {
+            rule.declarations.forEach(function (declaration) {
+                if (declaration.type === 'declaration') {
+                    properties.push(declaration.property + ':')
+                    values.push(declaration.value + ';')
+                    declaration_num++
+                }
+            })
+        }
+    })
+
+    for (var i = 0; i < declaration_num; i++) {
+        declarations.push(properties[i] + values[i])
+    }
+
+    return declarations
+}
+
+Cheatah.prototype.trimmedDeclarations  = function (selector) {
+    var trimmedAst = this.trim()
     var properties = []
     var values = []
     var declaration_num = 0
