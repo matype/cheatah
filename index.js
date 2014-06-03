@@ -2,9 +2,11 @@ var fs = require('fs')
 var path = require('path')
 var ejs = require('ejs')
 var parse = require('css-parse')
+var stringify = require('css-stringify')
 var enclose = require('html-enclose')
 var util = require('./lib/util')
 var config = require('./lib/config')
+var inspect = require('obj-inspector')
 
 var nodePrefix = config.nodePrefix
 var globalModulePath = config.globalModulePath
@@ -95,24 +97,50 @@ Cheatah.prototype.isDecoration = function (property) {
     return ret
 }
 
-Cheatah.prototype.trimDeclarations = function () {
+Cheatah.prototype.trim = function () {
     var self = this
     var decorationProp = util.decorationProp()
+    var trimmedRule = []
+
+    var height = {
+        property: 'height',
+        type: 'declaration',
+        value: '200px'
+    }
+    var width = {
+        property: 'width',
+        type: 'declaration',
+        value: '250px'
+    }
 
     self.ast.stylesheet.rules.forEach(function visit (rule) {
         if (rule.rules) rule.rules.forEach(visit);
 
         var count = 0
+        var dec = []
         rule.declarations.forEach(function (declaration) {
             if (self.isDecoration(declaration.property)) {
-                console.log(declaration.property)
-                delete rule.declarations[count]
+                dec.push(rule.declarations[count])
             }
             count++
         })
+        dec.push(height)
+        dec.push(width)
+        trimmedRule.push({
+            type: 'rule',
+            selectors: rule.selectors,
+            declarations: dec
+        })
     })
 
-    return this.ast.stylesheet.rules
+    var ret = {
+        type: 'stylesheet',
+        stylesheet: {
+            rules: trimmedRule
+        }
+    }
+
+    return stringify(ret)
 }
 
 Cheatah.prototype.build = function () {

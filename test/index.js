@@ -32,10 +32,10 @@ test('isInline', function (t) {
     t.end()
 })
 
-test('trimDeclarations', function (t) {
-    var result = cheatah.trimDeclarations()
+test('trim', function (t) {
+    var result = cheatah.trim()
 
-    var expected = false
+    var expected = '.content-box {\n  background-color: #eee;\n  border-radius: 5px;\n  height: 200px;\n  width: 250px;\n}'
 
     t.equal(result, expected)
 
