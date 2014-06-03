@@ -6,7 +6,6 @@ var stringify = require('css-stringify')
 var enclose = require('html-enclose')
 var util = require('./lib/util')
 var config = require('./lib/config')
-// var inspect = require('obj-inspector')
 
 var nodePrefix = config.nodePrefix
 var globalModulePath = config.globalModulePath
@@ -185,7 +184,7 @@ Cheatah.prototype.build = function () {
     tmplData.style = stringify(self.trim())
 
     tmplData.selectors.forEach(function (selector) {
-        tmplData.styleAttr.push(self.declarations(selector).join(''))
+        tmplData.styleAttr.push(self.trimmedDeclarations(selector).join(''))
 
         var enclosedDec = [];
         self.declarations(selector).forEach(function (dec) {
