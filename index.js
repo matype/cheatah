@@ -9,7 +9,7 @@ var config = require('./lib/config')
 
 var nodePrefix = config.nodePrefix
 var globalModulePath = config.globalModulePath
-globalModulePath = ""
+// globalModulePath = ""
 
 module.exports = Cheatah
 
