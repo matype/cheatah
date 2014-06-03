@@ -35,9 +35,20 @@ test('isInline', function (t) {
 test('trim', function (t) {
     var result = cheatah.trim()
 
-    var expected = '.content-box {\n  background-color: #eee;\n  border-radius: 5px;\n  height: 200px;\n  width: 250px;\n}'
+    var expected = { type: 'stylesheet',
+      stylesheet:
+         { rules:
+                   [ { type: 'rule',
+                                 selectors: [ '.content-box' ],
+              declarations:
+                             [ { type: 'declaration',
+                                                property: 'background-color',
+                                                               value: '#eee' },
+                 { type: 'declaration', property: 'border-radius', value: '5px' },
+                 { property: 'height', type: 'declaration', value: '200px' },
+                 { property: 'width', type: 'declaration', value: '250px' } ] } ] } };
 
-    t.equal(result, expected)
+    t.same(result, expected)
 
     t.end()
 })
