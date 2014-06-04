@@ -12,17 +12,34 @@ $ npm install -g cheatah
 
 ## Example
 
+Show help:
+
 ```shell
 $ cheatah --help
+```
 
+```
 Usage: cheatah [options]
 
-  Options:
+Options:
 
-  -h, --help        output usage information
-  -V, --version     output the version number
-  -t, --template    import your template file (.ejs)
-  -s, --stylesheet  import your stylesheet
+  -f, --file          your css file to generate styleguide [required]
+  -t, --template      import your template file (.ejs) path
+  -s, --style         import your stylesheet path
+  -V, --versions      output the version number
+  -h, --help          output usage information
+```
+
+Generate styleguide:
+
+```
+$ cheatah -f your-css-file.css
+```
+
+Generated cheatah.html, and
+
+```
+$ open cheatah.html
 ```
 
 ## License
