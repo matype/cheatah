@@ -9,7 +9,7 @@ var config = require('./lib/config')
 
 var nodePrefix = config.nodePrefix
 var globalModulePath = config.globalModulePath
-// globalModulePath = ""
+globalModulePath = ""
 
 module.exports = Cheatah
 
@@ -174,7 +174,7 @@ Cheatah.prototype.build = function () {
     var self = this
     var tmplData = {}
 
-    if (this.options.stylesheet) tmplData.tmplCssPath = this.options.stylesheet;
+    if (this.options.style) tmplData.tmplCssPath = this.options.style;
     else tmplData.tmplCssPath = globalModulePath + '/template/default.css';
 
     tmplData.cssPath = self.cssPath
@@ -195,5 +195,9 @@ Cheatah.prototype.build = function () {
     })
 
     var html = ejs.render(this.template, tmplData)
-    fs.writeFileSync('doc.html', html);
+    fs.writeFile('cheatah.html', html, function (err) {
+        if (err) throw err;
+        console.log('')
+        console.log('Successed to generate styleguide! (cheatah.html)')
+    })
 }
