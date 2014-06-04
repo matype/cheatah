@@ -2,7 +2,7 @@
 
 More fast and casual CSS styleguide or cheatsheet generator.
 
-Generate styleguide without writing unless comments in your CSS file.
+You need not write unless comments to generate stylsguide in your CSS file.
 
 ## Installation
 
@@ -36,7 +36,7 @@ Generate styleguide:
 $ cheatah -f your-css-file.css
 ```
 
-Generated cheatah.html, and
+Generated `cheatah.html`, and open this file:
 
 ```
 $ open cheatah.html
