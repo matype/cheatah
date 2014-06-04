@@ -2,14 +2,14 @@
 
 var fs = require('fs')
 var pkg = require('../package.json')
-var program = require('commander')
 var Cheatah = require('../')
 
 var argv = require('optimist')
     .alias('V', 'versions')
     .alias('h', 'help')
     .alias('t', 'template')
-    .alias('s', 'stylesheet')
+    .alias('s', 'style')
+    .alias('f', 'file')
     .argv
 
 var options = {}
@@ -17,19 +17,22 @@ var options = {}
 if (argv.V) console.log(pkg.version)
 
 if (argv.h) {
-    console.log("Usage: cheatah [cssFilePath] [options]")
+    console.log("Usage: cheatah [options]")
     console.log("")
     console.log("Options:")
     console.log("")
-    console.log("  -h, --help          output usage information")
-    console.log("  -V, --versions      output the version number")
+    console.log("  -f, --file          your css file to generate styleguide")
     console.log("  -t, --template      import your template file (.ejs) path")
-    console.log("  -s, --stylesheet    import your stylesheet path")
+    console.log("  -s, --style         import your stylesheet path")
+    console.log("  -V, --versions      output the version number")
+    console.log("  -h, --help          output usage information")
     console.log("")
 }
 
-if (argv.t) {
-}
+if (argv.t) options.template = argv.t
 
-if (argv.s) {
-}
+if (argv.s) options.style = argv.s
+
+var cheatah = new Cheatah(argv.f, options)
+
+cheatah.build()
