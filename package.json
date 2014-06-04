@@ -23,9 +23,9 @@
   "dependencies": {
     "css-parse": "^1.7.0",
     "ejs": "^1.0.0",
-    "commander": "^2.2.0",
     "html-enclose": "0.0.1",
-    "css-stringify": "^1.4.1"
+    "css-stringify": "^1.4.1",
+    "optimist": "^0.6.1"
   },
   "devDependencies": {
     "tap": "^0.4.9",
