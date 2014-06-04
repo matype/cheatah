@@ -5,10 +5,9 @@ var parse = require('css-parse')
 var stringify = require('css-stringify')
 var enclose = require('html-enclose')
 var util = require('./lib/util')
-var config = require('./lib/config')
-
-var nodePrefix = config.nodePrefix
-var globalModulePath = config.globalModulePath
+var config = require('node-prefix')
+var nodePrefix = config.prefix()
+var globalModulePath = config.global('cheatah')
 // globalModulePath = ""
 
 module.exports = Cheatah
