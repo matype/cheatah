@@ -140,6 +140,7 @@ Cheatah.prototype.isAnimation = function (property) {
 Cheatah.prototype.trim = function () {
     var self = this
     var decorationProp = util.decorationProp()
+    var animationProp = util.animationProp()
     var trimmedRule = []
 
     var height = {
@@ -159,7 +160,7 @@ Cheatah.prototype.trim = function () {
         var count = 0
         var dec = []
         rule.declarations.forEach(function (declaration) {
-            if (self.isDecoration(declaration.property)) {
+            if (self.isDecoration(declaration.property) || self.isAnimation(declaration.property)) {
                 dec.push(rule.declarations[count])
             }
             count++
