@@ -8,7 +8,7 @@ var util = require('./lib/util')
 var config = require('node-prefix')
 var nodePrefix = config.prefix()
 var globalModulePath = config.global('cheatah')
-// globalModulePath = ""
+globalModulePath = ""
 
 module.exports = Cheatah
 
@@ -174,7 +174,8 @@ Cheatah.prototype.build = function () {
     var tmplData = {}
 
     if (this.options.style) tmplData.tmplCssPath = this.options.style;
-    else tmplData.tmplCssPath = globalModulePath + '/template/default.css';
+    // Twitter Bootstrap
+    else tmplData.tmplCssPath = 'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css';
 
     tmplData.cssPath = self.cssPath
     tmplData.selectors = self.selectors()
@@ -187,7 +188,7 @@ Cheatah.prototype.build = function () {
 
         var enclosedDec = [];
         self.declarations(selector).forEach(function (dec) {
-            enclosedDec.push(enclose(dec, 'p'))
+            enclosedDec.push(enclose(dec, 'p', "class=code"))
         })
 
         tmplData.declarations.push(enclosedDec.join(''))
