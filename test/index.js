@@ -45,18 +45,19 @@ test('isInline', function (t) {
 test('trim', function (t) {
     var result = cheatah.trim()
 
-    var expected = { type: 'stylesheet',
-      stylesheet:
-         { rules:
-                   [ { type: 'rule',
-                                 selectors: [ '.content-box' ],
-              declarations:
-                             [ { type: 'declaration',
-                                                property: 'background-color',
-                                                               value: '#eee' },
-                 { type: 'declaration', property: 'border-radius', value: '5px' },
-                 { property: 'height', type: 'declaration', value: '200px' },
-                 { property: 'width', type: 'declaration', value: '250px' } ] } ] } };
+    var expected = {
+        type: 'stylesheet',
+        stylesheet:
+            { rules:
+                [ { type: 'rule',
+                    selectors: [ '.content-box' ],
+                    declarations:
+                        [ { type: 'declaration',
+                            property: 'background-color',
+                            value: '#eee' },
+                            { type: 'declaration', property: 'border-radius', value: '5px' },
+                            { property: 'height', type: 'declaration', value: '200px' },
+                            { property: 'width', type: 'declaration', value: '250px' } ] } ] } };
 
     t.same(result, expected)
 
@@ -103,11 +104,49 @@ test('isDecoration', function (t) {
         'letter-spacing',
         'line-height',
         'list-style',
-        'opacity'
+        'opacity',
+        'transform',
+        'transform-origin',
+        'transform-style'
     ]
 
     decorationProp.forEach(function (dp) {
         var result = cheatah.isDecoration(dp)
+
+        var expected = true
+
+        t.equal(result, expected)
+    })
+
+    t.end()
+})
+
+test('isAnimation', function (t) {
+    var animationProp = [
+        '@keyframes',
+        'animation',
+        'animation-delay',
+        'animation-direction',
+        'animation-duration',
+        'animation-fill-mode',
+        'animation-iteration-count',
+        'animation-name',
+        'animation-play-state',
+        'animation-timing-function',
+        'appearance',
+        'marquee-direction',
+        'marquee-count',
+        'marquee-speed',
+        'marquee-style',
+        'transition',
+        'transition-delay',
+        'transition-duration',
+        'transition-property',
+        'transition-timing-function'
+    ]
+
+    animationProp.forEach(function (ap) {
+        var result = cheatah.isAnimation(ap)
 
         var expected = true
 

@@ -123,6 +123,20 @@ Cheatah.prototype.isDecoration = function (property) {
     return ret
 }
 
+Cheatah.prototype.isAnimation = function (property) {
+    var animationProp = util.animationProp()
+    var ret = false;
+
+    animationProp.forEach(function (ap) {
+        if (property === ap) {
+            ret = true
+            return
+        }
+    })
+
+    return ret
+}
+
 Cheatah.prototype.trim = function () {
     var self = this
     var decorationProp = util.decorationProp()
