@@ -8,7 +8,7 @@ var util = require('./lib/util')
 var config = require('node-prefix')
 var nodePrefix = config.prefix()
 var globalModulePath = config.global('cheatah')
-globalModulePath = ""
+// globalModulePath = ""
 
 module.exports = Cheatah
 
