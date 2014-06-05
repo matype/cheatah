@@ -4,23 +4,41 @@
     <meta charset="UTF-8">
     <title>Cheater</title>
     <link rel="stylesheet" href="<%= tmplCssPath %>">
-    <!-- <link rel="stylesheet" href="<%= cssPath %>"> -->
     <style type="text/css">
       <%= style %>
     </style>
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Cheatah</h1>
-    <% var count= 0 %>
-    <% selectors.forEach(function (selector) { %>
-    <section>
-    <h2><%= selector %></h2>
-    <div>
-      <div style="<%= styleAttr %>"></div>
-      <div><%- declarations[count] %></div>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Cheatah</a>
+        </div>
+      </div>
     </div>
-    </section>
-    <% count++ %>
-    <% }) %>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <% var count= 0 %>
+        <% selectors.forEach(function (selector) { %>
+        <section>
+        <h2><%= selector %></h2>
+        <div>
+          <div style="<%= styleAttr %>"></div>
+          <div><%- declarations[count] %></div>
+        </div>
+        <% count++ %>
+        <% }) %>
+        <section>
+      </div>
+
+    </div><!-- /.container -->
+
   </body>
 </html>
