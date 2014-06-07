@@ -32,14 +32,14 @@
         <% var count= 0 %>
         <% selectors.forEach(function (selector) { %>
         <section>
-        <h2><%= selector %></h2>
-        <div class="style-image" style="<%= styleAttr %>"></div>
-        <div class="code-block">
-          <pre><%- declarations[count] %></div>
-        </div>
-        <% count++ %>
-        <% }) %>
+          <h2><%= selector %></h2>
+          <div class="style-image" style="<%= styleAttr %>"></div>
+          <div class="code-block">
+            <pre><%- declarations[count] %></pre>
+          </div>
+          <% count++ %>
         <section>
+        <% }) %>
         <hr>
       </div>
 
